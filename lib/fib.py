@@ -4,3 +4,6 @@ def recursive_fibonacci(n):
         return n
     else:
         return recursive_fibonacci(n - 1) + recursive_fibonacci(n - 2)
+
+def another_function():
+    print("foo bar")
