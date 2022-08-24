@@ -9,7 +9,7 @@ jobs:
           python-version: "3.10"
       - name: Run tests
         run: python -mpytest
-      - uses: irongut/CodeCoverageSummary
+      - uses: irongut/CodeCoverageSummary@v1.3.0
         with:
           filename: coverage.xml
           format: markdown
