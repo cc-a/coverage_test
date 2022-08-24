@@ -4,18 +4,26 @@ jobs:
     runs-on: ubuntu-22.04
     steps:
       - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - run: git branch -vv
+      - run: git fetch
+      - run: git branch -vv
       - uses: actions/setup-python@v3
         with:
           python-version: "3.10"
+      - name: install dependencies
+        run: pip install -r requirements-dev.txt
       - name: Run tests
         run: python -mpytest
-      - uses: irongut/CodeCoverageSummary
+      - name: get diff coverage
+        run: diff-cover coverage.xml --compare-branch=origin/main --show-uncovered --html-report out.html --markdown-report out.md
+      - uses: actions/upload-artifact@v3
         with:
-          filename: coverage.xml
-          format: markdown
-          output: both
+          name: coverage
+          path: out.html
       - name: Add Coverage PR Comment
         uses: marocchino/sticky-pull-request-comment@v2
         with:
           recreate: true
-          path: code-coverage-results.md
+          path: out.md
