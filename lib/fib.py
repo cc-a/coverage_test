@@ -1,5 +1,8 @@
 def recursive_fibonacci(n):
     """Return the n'th number of the fibonacci sequence"""
+
+    if n < 0:
+        return None
     if n <= 1:
         return n
     else:
